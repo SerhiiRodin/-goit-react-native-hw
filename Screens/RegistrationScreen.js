@@ -7,11 +7,15 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
+  Image,
 } from "react-native";
 import * as Font from "expo-font";
 import imageBackground from "../assets/backgroundImg/PhotoBG.jpg";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useState } from "react";
+import { SvgUri } from "react-native-svg";
+import Logo from "../assets/icons/add.svg";
+import * as Svg from "react-native-svg";
 
 const initialState = {
   login: "",
@@ -19,14 +23,7 @@ const initialState = {
   password: "",
 };
 
-// const loadApplication = async () => {
-//   await Font.loadAsync({
-//     "Roboto-Medium": require("../assets/fonts/Roboto-Medium.ttf"),
-//     "Roboto-Regular": require("../assets/fonts/Roboto-Regular.ttf"),
-//   });
-// }
-
-const RegistrationScreen = () => {
+const RegistrationScreen = ({ toggleScreen }) => {
   const [state, setState] = useState(initialState);
   const [isShowPassword, setIsShowPassword] = useState(true);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -57,7 +54,27 @@ const RegistrationScreen = () => {
           onPress={keyboardHide}
         >
           <View style={styles.photo}>
-            <Text style={styles.addPhoto}></Text>
+            <View style={styles.addPhoto}>
+              <TouchableOpacity>
+                {/* <SvgUri
+                width="100%"
+                height="100%"
+                uri="http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg"
+              /> */}
+                {/* <Logo width="100%" height="100%" /> */}
+                {isShowKeyboard ? (
+                  <Image
+                    source={require("../assets/icons/del.png")}
+                    style={{ width: 40, height: 40 }}
+                  />
+                ) : (
+                  <Image
+                    source={require("../assets/icons/add.png")}
+                    style={{ width: 25, height: 25 }}
+                  />
+                )}
+              </TouchableOpacity>
+            </View>
             {/* <AiOutlinePlusCircle size={25} fill="#FF6C00" /> */}
           </View>
           <Text style={styles.title}>Регистрация</Text>
@@ -135,7 +152,9 @@ const RegistrationScreen = () => {
             <Text style={styles.registrationBtnText}>Зарегистрироваться</Text>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={1}>
-            <Text style={styles.enterText}>Уже есть аккаунт? Войти</Text>
+            <Text style={styles.enterText} onPress={toggleScreen}>
+              Уже есть аккаунт? Войти
+            </Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -183,7 +202,7 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     borderWidth: 1,
-    borderColor: "#FF6C00",
+    borderColor: "transparent",
     backgroundColor: "#FFFFFF",
     borderRadius: 100,
   },

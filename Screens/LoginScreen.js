@@ -11,7 +11,7 @@ import {
 import imageBackground from "../assets/backgroundImg/PhotoBG.jpg";
 import { useState } from "react";
 
-const LoginScreen = () => {
+const LoginScreen = ({ toggleScreen }) => {
   const [isShowPassword, setIsShowPassword] = useState(true);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
@@ -70,7 +70,7 @@ const LoginScreen = () => {
             <Text style={styles.registrationBtnText}>Войти</Text>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={1}>
-            <Text style={styles.enterText}>
+            <Text style={styles.enterText} onPress={toggleScreen}>
               Нет аккаунта? Зарегистрироваться
             </Text>
           </TouchableOpacity>

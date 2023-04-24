@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
@@ -9,6 +9,8 @@ import LoginScreen from "./Screens/LoginScreen";
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [screen, setScreen] = useState(true);
+
   const [fontsLoaded] = useFonts({
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
@@ -24,9 +26,18 @@ export default function App() {
     return null;
   }
 
+  const toggleScreen = () => {
+    setScreen(!screen);
+  };
+
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <RegistrationScreen />
+      {screen ? (
+        <RegistrationScreen toggleScreen={toggleScreen} />
+      ) : (
+        <LoginScreen toggleScreen={toggleScreen} />
+      )}
+      {/* <RegistrationScreen /> */}
       {/* <LoginScreen/> */}
       <StatusBar style="auto" />
     </View>
